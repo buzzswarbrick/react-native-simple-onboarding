@@ -10,11 +10,11 @@ export default class Onboarding extends Component {
     super();
 
     this.state = {
-      currentPage: 0,
+      currentPage: 0
     };
   }
 
-  updatePosition = (event) => {
+  updatePosition = event => {
     const { contentOffset, layoutMeasurement } = event.nativeEvent;
     const pageFraction = contentOffset.x / layoutMeasurement.width;
     const page = Math.round(pageFraction);
@@ -44,58 +44,35 @@ export default class Onboarding extends Component {
 
     return (
       <View style={{ flex: 1, backgroundColor: backgroundColor, justifyContent: 'center' }}>
-        <ScrollView
-          ref="scroll"
-          pagingEnabled={true}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          onScroll={this.updatePosition}
-          scrollEventThrottle={100}
-        >
-          {pages.map(({ image, title, subtitle }, idx) => (
-            <PageData
-              key={idx}
-              isLight={isLight}
-              image={image}
-              title={title}
-              subtitle={subtitle}
-              width={width}
-              height={height}
-            />
-          ))}
+        <ScrollView ref="scroll" pagingEnabled={true} horizontal={true} showsHorizontalScrollIndicator={false} onScroll={this.updatePosition} scrollEventThrottle={100}>
+          {pages.map(({ image, title, subtitle, titleStyles, subtitleStyles }, idx) => <PageData key={idx} isLight={isLight} image={image} title={title} subtitle={subtitle} titleStyles={titleStyles} subtitleStyles={subtitleStyles} width={width} height={height} />)}
         </ScrollView>
-        <Paginator
-          isLight={isLight}
-          overlay={bottomOverlay}
-          showSkip={showSkip}
-          showNext={showNext}
-          showDone={showDone}
-          pages={pages.length}
-          currentPage={this.state.currentPage}
-          onEnd={this.props.onEnd}
-          onNext={this.goNext}
-        />
+        <Paginator isLight={isLight} overlay={bottomOverlay} showSkip={showSkip} showNext={showNext} showDone={showDone} pages={pages.length} currentPage={this.state.currentPage} onEnd={this.props.onEnd} onNext={this.goNext} />
       </View>
     );
   }
 }
 
 Onboarding.propTypes = {
-  pages: PropTypes.arrayOf(PropTypes.shape({
-    backgroundColor: PropTypes.string.isRequired,
-    image: PropTypes.element.isRequired,
-    title: PropTypes.string.isRequired,
-    subtitle: PropTypes.string.isRequired,
-  })).isRequired,
+  pages: PropTypes.arrayOf(
+    PropTypes.shape({
+      backgroundColor: PropTypes.string.isRequired,
+      image: PropTypes.element.isRequired,
+      title: PropTypes.string.isRequired,
+      titleStyles: PropTypes.object.isRequired,
+      subtitle: PropTypes.string.isRequired,
+      subtitleStyles: PropTypes.object.isRequired
+    })
+  ).isRequired,
   bottomOverlay: PropTypes.bool,
   showSkip: PropTypes.bool,
   showNext: PropTypes.bool,
-  showDone: PropTypes.bool,
+  showDone: PropTypes.bool
 };
 
 Onboarding.defaultProps = {
   bottomOverlay: true,
   showSkip: true,
   showNext: true,
-  showDone: true,
+  showDone: true
 };

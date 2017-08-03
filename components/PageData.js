@@ -1,65 +1,62 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-const Page = ({ width, height, children }) => (
+const Page = ({ width, height, children }) =>
   <View style={{ width, height }}>
     {children}
-  </View>
-);
+  </View>;
 
-const PageContent = ({ children }) => (
+const PageContent = ({ children }) =>
   <View style={styles.content}>
     <View style={{ flex: 0 }}>
       {children}
     </View>
-  </View>
-);
+  </View>;
 
-const PageData = ({ isLight, image, title, subtitle, ...rest }) => (
+const PageData = ({ titleStyles, subtitleStyles, isLight, image, title, subtitle, ...rest }) =>
   <Page {...rest}>
     <PageContent>
       <View style={styles.image}>
         {image}
       </View>
-      <Text style={{ ...styles.title, ...(isLight ? styles.titleLight : {}) }}>
+      <Text style={{ ...titleStyles, ...styles.title, ...(isLight ? styles.titleLight : {}) }}>
         {title}
       </Text>
-      <Text style={{ ...styles.subtitle, ...(isLight ? styles.subtitleLight : {}) }}>
+      <Text style={{ ...subtitleStyles, ...styles.subtitle, ...(isLight ? styles.subtitleLight : {}) }}>
         {subtitle}
       </Text>
     </PageContent>
-  </Page>
-);
+  </Page>;
 
 const styles = {
   content: {
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   image: {
     flex: 0,
     paddingBottom: 60,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   title: {
     textAlign: 'center',
     fontSize: 26,
     color: '#fff',
-    paddingBottom: 15,
+    paddingBottom: 15
   },
   titleLight: {
-    color: '#000',
+    color: '#000'
   },
   subtitle: {
     textAlign: 'center',
     fontSize: 16,
-    color: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(255, 255, 255, 0.7)'
   },
   subtitleLight: {
-    color: 'rgba(0, 0, 0, 0.7)',
-  },
+    color: 'rgba(0, 0, 0, 0.7)'
+  }
 };
 
 export default PageData;

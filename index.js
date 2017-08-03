@@ -37,7 +37,7 @@ export default class Onboarding extends Component {
 
   render() {
     const { width, height } = Dimensions.get('window');
-    const { pages, bottomOverlay, showSkip, showNext, showDone } = this.props;
+    const { pages, bottomOverlay, showSkip, showNext, showDone, buttonStyle } = this.props;
     const currentPage = pages[this.state.currentPage] || pages[0];
     const { backgroundColor } = currentPage;
     const isLight = tinycolor(backgroundColor).getBrightness() > 180;
@@ -47,7 +47,7 @@ export default class Onboarding extends Component {
         <ScrollView ref="scroll" pagingEnabled={true} horizontal={true} showsHorizontalScrollIndicator={false} onScroll={this.updatePosition} scrollEventThrottle={100}>
           {pages.map(({ image, title, subtitle, titleStyles, subtitleStyles }, idx) => <PageData key={idx} isLight={isLight} image={image} title={title} subtitle={subtitle} titleStyles={titleStyles} subtitleStyles={subtitleStyles} width={width} height={height} />)}
         </ScrollView>
-        <Paginator isLight={isLight} overlay={bottomOverlay} showSkip={showSkip} showNext={showNext} showDone={showDone} pages={pages.length} currentPage={this.state.currentPage} onEnd={this.props.onEnd} onNext={this.goNext} />
+        <Paginator buttonStyle={buttonStyle} isLight={isLight} overlay={bottomOverlay} showSkip={showSkip} showNext={showNext} showDone={showDone} pages={pages.length} currentPage={this.state.currentPage} onEnd={this.props.onEnd} onNext={this.goNext} />
       </View>
     );
   }
@@ -64,6 +64,7 @@ Onboarding.propTypes = {
       subtitleStyles: PropTypes.object.isRequired
     })
   ).isRequired,
+  buttonStyle: PropTypes.object.isRequired,
   bottomOverlay: PropTypes.bool,
   showSkip: PropTypes.bool,
   showNext: PropTypes.bool,
